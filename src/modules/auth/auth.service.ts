@@ -41,7 +41,7 @@ export const createJWTToken = (user: {
   createdAt: Date;
 }) => {
   return jwt.sign(user, process.env.JWT_SECRET!, {
-    expiresIn: "1h",
+    expiresIn: "7d",
   });
 };
 

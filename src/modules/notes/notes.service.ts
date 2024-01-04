@@ -2,16 +2,10 @@ import { db } from "../../db";
 
 export const deleteNoteById = async (id: string, userId: string) => {
   try {
-    const note = await db
+    return await db
       .deleteFrom("Notes")
       .where((eb) => eb.and([eb("id", "=", id), eb("authorId", "=", userId)]))
       .execute();
-
-    if (!note) {
-      throw new Error("Note not found");
-    }
-
-    return note;
   } catch (e) {
     throw new Error("Error deleting note");
   }
@@ -25,7 +19,7 @@ export const updateNoteById = async (
   }
 ) => {
   try {
-    const updatedNote = await db
+    return await db
       .updateTable("Notes")
       .set({
         content: note.content,
@@ -34,12 +28,6 @@ export const updateNoteById = async (
       })
       .where("id", "=", id)
       .execute();
-
-    if (!updatedNote) {
-      throw new Error("Note not found");
-    }
-
-    return updatedNote;
   } catch (e) {
     throw new Error("Error updating note");
   }
@@ -50,6 +38,7 @@ export const getNoteById = async (id: string, userId: string) => {
     const note = await db
       .selectFrom("Notes")
       .where((eb) => eb.and([eb("id", "=", id), eb("authorId", "=", userId)]))
+      .selectAll()
       .execute();
 
     if (!note) {
@@ -78,12 +67,9 @@ export const createUserNote = async (note: {
       })
       .execute();
 
-    if (!newNote) {
-      throw new Error("Error creating note");
-    }
-
     return newNote;
   } catch (e) {
+    console.log(e);
     throw new Error("Error creating note");
   }
 };
@@ -93,6 +79,7 @@ export const getAllNotesByUserId = async (userId: string) => {
     const notes = await db
       .selectFrom("Notes")
       .where("authorId", "=", userId)
+      .selectAll()
       .execute();
 
     if (!notes) {
@@ -118,6 +105,8 @@ export const searchNotesByQuery = async (query: string, userId: string) => {
           ]),
         ])
       )
+      .selectAll()
+      .limit(10)
       .execute();
 
     if (!notes) {
@@ -142,37 +131,47 @@ export const shareNoteWithUserByEmail = async (
       .select("id")
       .execute();
 
-    if (!getIdByEmail) {
+    if (getIdByEmail.length === 0) {
       throw new Error("User not found");
     }
 
     const note = await db
       .selectFrom("Notes")
-      .where((eb) =>
-        eb.and([eb("id", "=", noteId), eb("authorId", "=", userId)])
-      )
-      .select("id")
+      .where("id", "=", noteId)
+      .select(["id", "authorId"])
       .execute();
 
-    if (!note) {
+    if (note.length === 0) {
       throw new Error("Note not found");
     }
 
-    const sharedNote = await db
+    if (note[0].authorId !== userId) {
+      throw new Error("Note does not belong to this user");
+    }
+
+    const checkIfAlreadyShared = await db
+      .selectFrom("SharingAccess")
+      .where("noteId", "=", noteId)
+      .where("userId", "=", getIdByEmail[0].id)
+      .select("id")
+      .execute();
+
+    if (checkIfAlreadyShared.length > 0) {
+      return "Note already shared with this user";
+    }
+
+    await db
       .insertInto("SharingAccess")
       .values({
-        noteId: note[0].id,
+        noteId: noteId,
         userId: getIdByEmail[0].id,
         updatedAt: new Date().toISOString(),
       })
       .execute();
 
-    if (!sharedNote) {
-      throw new Error("Error sharing note");
-    }
-
-    return sharedNote;
+    return "Note shared successfully";
   } catch (e) {
+    console.log(e);
     throw new Error("Error sharing note");
   }
 };

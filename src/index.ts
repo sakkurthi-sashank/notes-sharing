@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(rateLimitMiddleware);
+// app.use(rateLimitMiddleware);
 
 app.get("/server", (req, res) => {
   res.send({

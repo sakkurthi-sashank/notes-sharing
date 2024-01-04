@@ -37,7 +37,7 @@ export const createNote = async (req: Request, res: Response) => {
     });
 
     res.status(200).send({
-      note: createdNote,
+      message: "Note created successfully",
     });
   } catch (e) {
     res.status(500).send({
@@ -88,11 +88,17 @@ export const deleteNote = async (req: Request, res: Response) => {
   const user = res.locals.user;
   const { id } = req.params;
 
+  if (!id) {
+    res.status(400).send({
+      message: "Note id is required",
+    });
+  }
+
   try {
     const deletedNote = await deleteNoteById(id, user.id);
 
     res.status(200).send({
-      note: deletedNote,
+      message: "Note deleted successfully",
     });
   } catch (e) {
     res.status(500).send({
@@ -123,11 +129,23 @@ export const shareNote = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { email } = req.body;
 
+  if (!email) {
+    res.status(400).send({
+      message: "Email is required",
+    });
+  }
+
+  if (!id) {
+    res.status(400).send({
+      message: "Note id is required",
+    });
+  }
+
   try {
-    const note = await shareNoteWithUserByEmail(id, email, user.id);
+    const message = await shareNoteWithUserByEmail(id, email, user.id);
 
     res.status(200).send({
-      note,
+      message: message,
     });
   } catch (e) {
     res.status(500).send({

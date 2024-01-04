@@ -37,7 +37,7 @@ model Notes {
 }
 
 model SharingAccess {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id        String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   note      Notes    @relation(fields: [noteId], references: [id])
   noteId    String   @db.Uuid
   user      User     @relation(fields: [userId], references: [id])
@@ -45,5 +45,7 @@ model SharingAccess {
   createdAt DateTime @default(dbgenerated("now()")) @db.Timestamp(6)
   updatedAt DateTime @updatedAt
 
+  @@id([noteId, userId])
+  @@unique([noteId, userId])
   @@index([noteId, userId], name: "sharing_access_unique")
 }

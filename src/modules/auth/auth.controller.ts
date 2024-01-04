@@ -13,7 +13,7 @@ export const userSignUp = async (req: Request, res: Response) => {
   if (!email || !password || !name) {
     return res
       .status(400)
-      .json({ message: "Email and password are required!" });
+      .json({ message: "Email and password and name are required!" });
   }
 
   try {
@@ -67,7 +67,8 @@ export const userSignIn = async (req: Request, res: Response) => {
     });
 
     return res.status(200).json({ token });
-  } catch {
+  } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "Internal server error!" });
   }
 };
