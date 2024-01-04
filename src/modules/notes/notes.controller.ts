@@ -36,7 +36,7 @@ export const createNote = async (req: Request, res: Response) => {
       userId: user.id,
     });
 
-    res.status(200).send({
+    res.status(201).send({
       message: "Note created successfully",
     });
   } catch (e) {
@@ -69,7 +69,7 @@ export const updateNote = async (req: Request, res: Response) => {
   const { title, content } = req.body;
 
   try {
-    const updatedNote = await updateNoteById(
+    await updateNoteById(
       id,
       {
         title,
@@ -79,7 +79,7 @@ export const updateNote = async (req: Request, res: Response) => {
     );
 
     res.status(200).send({
-      note: updatedNote,
+      message: "Note updated successfully",
     });
   } catch (e) {
     res.status(500).send({
@@ -100,7 +100,6 @@ export const deleteNote = async (req: Request, res: Response) => {
 
   try {
     await deleteNoteById(id, user.id);
-
     res.status(200).send({
       message: "Note deleted successfully",
     });

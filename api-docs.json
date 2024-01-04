@@ -1,0 +1,171 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "notes-app",
+    "dateExported": "2024-01-04T07:36:45.786Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "5e4dd296-1c41-43a8-a001-0e7098845179",
+            "colId": "aae1e4a5-4f8d-49f8-b360-8f55d2faeecd",
+            "containerId": "",
+            "name": "check server",
+            "url": "/server",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2024-01-04T06:18:01.358Z",
+            "modified": "2024-01-04T06:45:59.505Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6cf7541b-60be-42b7-a12d-a1d593edc5be",
+            "colId": "aae1e4a5-4f8d-49f8-b360-8f55d2faeecd",
+            "containerId": "",
+            "name": "user signup",
+            "url": "/api/auth/signup",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-01-04T06:18:21.582Z",
+            "modified": "2024-01-04T07:00:27.551Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\":\"Sakkurthi Rao\",\n  \"email\": \"sakkurthiraok@gmail.com\",\n  \"password\": \"987654321\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "72afcac0-1189-490c-86d8-28ec48ca091e",
+            "colId": "aae1e4a5-4f8d-49f8-b360-8f55d2faeecd",
+            "containerId": "",
+            "name": "user login",
+            "url": "/api/auth/login",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2024-01-04T06:21:13.188Z",
+            "modified": "2024-01-04T07:00:38.882Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"sakkurthiraok@gmail.com\",\n  \"password\": \"987654321\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "64645cdf-cdf2-4c3f-82e0-729f7d42a40c",
+            "colId": "aae1e4a5-4f8d-49f8-b360-8f55d2faeecd",
+            "containerId": "",
+            "name": "get all notes",
+            "url": "/api/notes",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-01-04T06:41:02.963Z",
+            "modified": "2024-01-04T06:45:42.443Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b9fc6d14-76b7-49f1-bc9e-f136c583f645",
+            "colId": "aae1e4a5-4f8d-49f8-b360-8f55d2faeecd",
+            "containerId": "",
+            "name": "create notes",
+            "url": "/api/notes",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2024-01-04T06:47:20.067Z",
+            "modified": "2024-01-04T06:48:24.537Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"A Good Note Book\",\n  \"content\": \"I Love Good Note Books\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "b85cdd5b-0f8e-4018-9f93-0d895caa0d0c",
+            "colId": "aae1e4a5-4f8d-49f8-b360-8f55d2faeecd",
+            "containerId": "",
+            "name": "delete notes",
+            "url": "/api/notes/3aa2f57f-f258-458b-a035-d07e3905250e",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2024-01-04T06:53:19.442Z",
+            "modified": "2024-01-04T06:53:53.775Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ff186837-9dfc-41b2-8f08-fb52520c8df1",
+            "colId": "aae1e4a5-4f8d-49f8-b360-8f55d2faeecd",
+            "containerId": "",
+            "name": "update notes",
+            "url": "/api/notes/884f56f3-2b8d-4d59-81c2-a9c16b51a100",
+            "method": "PUT",
+            "sortNum": 70000,
+            "created": "2024-01-04T06:56:52.633Z",
+            "modified": "2024-01-04T06:57:38.486Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"title\": \"A Good Note Book By Sashank\",\n  \"content\": \"I Love Good Note Books\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "873f531e-f21e-4e8a-a243-9f0a9ac79a97",
+            "colId": "aae1e4a5-4f8d-49f8-b360-8f55d2faeecd",
+            "containerId": "",
+            "name": "share notes",
+            "url": "/api/notes/884f56f3-2b8d-4d59-81c2-a9c16b51a100/share",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2024-01-04T06:59:25.017Z",
+            "modified": "2024-01-04T07:03:06.775Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"sakkurthirao@gmail.com\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a584b456-0a08-4533-bd33-9a9a523720ad",
+            "colId": "aae1e4a5-4f8d-49f8-b360-8f55d2faeecd",
+            "containerId": "",
+            "name": "search content",
+            "url": "/api/notes/search/g",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2024-01-04T07:19:11.613Z",
+            "modified": "2024-01-04T07:23:14.817Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ],
+    "settings": {
+        "headers": [
+            {
+                "name": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ5NzliMDI5LTc3NmEtNGZmZC1hY2U3LWMwOTgzNTMxMmQ5YyIsImRpc3BsYXlOYW1lIjoiU2Fra3VydGhpIFNhc2hhbmsiLCJlbWFpbCI6InNha2t1cnRoaXNhc2hhbmtAZ21haWwuY29tIiwiY3JlYXRlZEF0IjoiMjAyNC0wMS0wNFQwMDo1MDozMC45MDdaIiwiaWF0IjoxNzA0MzUwMzA3LCJleHAiOjE3MDQ5NTUxMDd9.W5Q2ssnvdYEk1c2iRrAvoF01qFw61wzS0Nqgv_4JF8U"
+            }
+        ],
+        "options": {
+            "baseUrl": "http://localhost:8080"
+        }
+    }
+}

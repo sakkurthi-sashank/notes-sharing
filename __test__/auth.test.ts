@@ -1,10 +1,22 @@
 import request from "supertest";
 import express, { Express } from "express";
+import dotenv from "dotenv";
+dotenv.config();
+
+import { db } from "../src/db";
 import { authRouter } from "../src/modules/auth/auth.router";
 
 const app: Express = express();
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use("/auth", authRouter);
+
+afterAll(async () => {
+  await db.deleteFrom("User").execute();
+  await db.destroy();
+});
 
 describe("Auth API endpoints", () => {
   it("should sign up a new user", async () => {

@@ -2,10 +2,7 @@ import { db } from "../../db";
 
 export const deleteNoteById = async (id: string, userId: string) => {
   try {
-    return await db
-      .deleteFrom("Notes")
-      .where((eb) => eb.and([eb("id", "=", id), eb("authorId", "=", userId)]))
-      .execute();
+    db.deleteFrom("Notes").execute();
   } catch (e) {
     throw new Error("Error deleting note");
   }
