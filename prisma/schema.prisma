@@ -1,0 +1,49 @@
+generator kysely {
+  provider     = "prisma-kysely"
+  output       = "../src/db"
+  fileName     = "types.ts"
+  enumFileName = "enums.ts"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  displayName    String
+  email          String          @unique
+  hashedPassword String
+  createdAt      DateTime        @default(dbgenerated("now()")) @db.Timestamp(6)
+  updatedAt      DateTime        @updatedAt
+  notes          Notes[]
+  sharingAccess  SharingAccess[]
+
+  @@index([displayName, email], name: "user_unique")
+}
+
+model Notes {
+  id            String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title         String
+  content       String
+  createdAt     DateTime        @default(dbgenerated("now()")) @db.Timestamp(6)
+  updatedAt     DateTime        @updatedAt
+  author        User            @relation(fields: [authorId], references: [id])
+  authorId      String          @db.Uuid
+  sharingAccess SharingAccess[]
+
+  @@index([authorId, title, content], name: "note_unique")
+}
+
+model SharingAccess {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  note      Notes    @relation(fields: [noteId], references: [id])
+  noteId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @db.Uuid
+  createdAt DateTime @default(dbgenerated("now()")) @db.Timestamp(6)
+  updatedAt DateTime @updatedAt
+
+  @@index([noteId, userId], name: "sharing_access_unique")
+}
