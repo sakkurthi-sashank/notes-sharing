@@ -30,7 +30,7 @@ export const createNote = async (req: Request, res: Response) => {
   const { title, content } = req.body;
 
   try {
-    const createdNote = await createUserNote({
+    await createUserNote({
       title,
       content,
       userId: user.id,
@@ -69,10 +69,14 @@ export const updateNote = async (req: Request, res: Response) => {
   const { title, content } = req.body;
 
   try {
-    const updatedNote = await updateNoteById(id, {
-      title,
-      content,
-    });
+    const updatedNote = await updateNoteById(
+      id,
+      {
+        title,
+        content,
+      },
+      user.id,
+    );
 
     res.status(200).send({
       note: updatedNote,
@@ -95,7 +99,7 @@ export const deleteNote = async (req: Request, res: Response) => {
   }
 
   try {
-    const deletedNote = await deleteNoteById(id, user.id);
+    await deleteNoteById(id, user.id);
 
     res.status(200).send({
       message: "Note deleted successfully",
@@ -129,15 +133,9 @@ export const shareNote = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { email } = req.body;
 
-  if (!email) {
+  if (!email || !id) {
     res.status(400).send({
-      message: "Email is required",
-    });
-  }
-
-  if (!id) {
-    res.status(400).send({
-      message: "Note id is required",
+      message: "Email and note id are required",
     });
   }
 

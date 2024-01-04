@@ -16,7 +16,8 @@ export const updateNoteById = async (
   note: {
     content: string;
     title: string;
-  }
+  },
+  userId: string,
 ) => {
   try {
     return await db
@@ -27,6 +28,7 @@ export const updateNoteById = async (
         updatedAt: new Date().toISOString(),
       })
       .where("id", "=", id)
+      .where("authorId", "=", userId)
       .execute();
   } catch (e) {
     throw new Error("Error updating note");
@@ -103,7 +105,7 @@ export const searchNotesByQuery = async (query: string, userId: string) => {
             eb("content", "like", `%${query}%`),
             eb("title", "like", `%${query}%`),
           ]),
-        ])
+        ]),
       )
       .selectAll()
       .limit(10)
@@ -122,7 +124,7 @@ export const searchNotesByQuery = async (query: string, userId: string) => {
 export const shareNoteWithUserByEmail = async (
   noteId: string,
   email: string,
-  userId: string
+  userId: string,
 ) => {
   try {
     const getIdByEmail = await db
