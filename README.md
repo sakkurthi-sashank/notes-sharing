@@ -34,8 +34,15 @@
 ## Local Installation and Development
 
 ### Setup Environment Variables
-1. Create a `.env` file in the root directory.
-2. Add the following variables to the `.env` file:
+
+1. clone the repository
+
+```bash
+https://github.com/sakkurthi-sashank/notes-sharing.git
+```
+
+2. Create a `.env` file in the root directory.
+3. Add the following variables to the `.env` file:
 
 ```bash
 DATABASE_USER=
@@ -52,7 +59,7 @@ PORT=8080
 JWT_SECRET=
 ```
 
-3. After creating the `.env` file, execute the following command to run database migrations:
+4. After creating the `.env` file, execute the following command to run database migrations:
 
 ```bash
 npx prisma migrate dev
@@ -60,7 +67,7 @@ npx prisma migrate dev
 ```
 
 #### Start Development Server
-4. For development:
+5. For development:
 
 ```bash
 npm run dev
@@ -68,7 +75,7 @@ npm run dev
 ```
 
 #### Build and Start Production Server
-5. For production:
+6. For production:
 
 ```bash
 npm run build && npm run start
